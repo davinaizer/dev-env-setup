@@ -2,7 +2,6 @@
 brew 'git'
 brew 'gh'
 brew 'nvm'
-brew 'yarn'
 brew 'python'
 
 # 'brew tap'
