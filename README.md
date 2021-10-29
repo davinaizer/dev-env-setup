@@ -2,7 +2,7 @@
 
 A simple shell script to help setting up a development environment.
 
-This is still experimental and any issues should be logged on the [issues page](./issues).
+This is still experimental and any issues should be logged on the [issues page](../../issues).
 
 # How to use
 
