@@ -60,6 +60,9 @@ function welcomeMessage() {
 
 function installSystemDeps() {
     echo
+    cecho "GREEN" "Installing XCode command line tools..."
+    xcode-select --install
+    
     cecho "GREEN" "Installing Homebrew (Package manager)..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
