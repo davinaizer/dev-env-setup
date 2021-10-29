@@ -48,7 +48,7 @@ function welcomeMessage() {
     echo
     cecho "YELLOW" "Welcome to the Dev Env Setup Script v${SCRIPT_VERSION}"
     echo
-    echo "This script will create a workspace folder and install most applications and respositories required to work on as a FrontEnd Dev."
+    echo "This script will create a workspace folder in your HOME directory and install a selection of applications and respositories."
     echo "It will take a while to complete, so go grab youself a coffee in the meantime."
     echo
     echo "The WORKSPACE folder will be created in the following location:"
@@ -72,10 +72,18 @@ function installAppsBundle() {
 
 function installNodeDeps() {
     echo
-    cecho "GREEN" "Installing Node and global packages..."
-    nvm install 10
+    cecho "GREEN" "Installing NodeJS..."
+
+    # source nvm script
+    . $(brew --prefix nvm)/nvm.sh
+
+    # install nodejs
     nvm install 12
     nvm alias default 12
+
+    echo
+    cecho "GREEN" "Installing NPM Global packages..."
+    npm install -g eslint npm-check yarn
 }
 
 function createWorkspaceFolders() {
@@ -91,13 +99,34 @@ function createWorkspaceFolders() {
 
 function cloneRepos() {
     echo
-    cecho "GREEN" "Cloning GAMESYS-DESIGN repositories..."
+    cecho "GREEN" "Cloning GitHub repositories..."
     for repo in "${GIT_REPO_LIST[@]}"; do
         REPO_REMOTE_PATH="${GIT_REPO_URL}/${repo}"
-        REPO_LOCAL_PATH="${WORKSPACE_PATH}/gamesys-design/${repo}"
+        REPO_LOCAL_PATH="${WORKSPACE_PATH}/github/${repo}"
         cecho "CYAN" "Cloning project: ${repo}"
         git clone $REPO_REMOTE_PATH $REPO_LOCAL_PATH
     done
+}
+
+function macosCustomSettings() {
+    # Show Library folder
+    chflags nohidden ~/Library
+    # Show path bar
+    defaults write com.apple.finder ShowPathbar -bool true
+    # Show status bar
+    defaults write com.apple.finder ShowStatusBar -bool true
+
+    # Add macOS Dock Dividers
+    for i in {1..4}; do
+        defaults write com.apple.dock persistent-apps -array-add '{tile-type="spacer-tile";}'
+    done
+    # Add macOS Dock Dividers - right side of the dock
+    for i in {1..2}; do
+        defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
+    done
+
+    # restart Dock
+    killall Dock
 }
 
 function init() {
@@ -109,6 +138,7 @@ function init() {
     # INSTALL DEPENDENCIES
     installSystemDeps
     installAppsBundle
+    macosCustomSettings
     installNodeDeps
 
     # create workspace and clone repos
