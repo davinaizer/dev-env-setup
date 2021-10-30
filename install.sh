@@ -62,7 +62,7 @@ function installSystemDeps() {
     echo
     cecho "GREEN" "Installing XCode command line tools..."
     xcode-select --install
-    
+
     cecho "GREEN" "Installing Homebrew (Package manager)..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
@@ -78,7 +78,7 @@ function installNodeDeps() {
     cecho "GREEN" "Installing NodeJS..."
 
     # source nvm script
-    . $(brew --prefix nvm)/nvm.sh
+    source $(brew --prefix nvm)/nvm.sh
 
     # install nodejs
     nvm install 12
@@ -108,6 +108,7 @@ function cloneRepos() {
         REPO_LOCAL_PATH="${WORKSPACE_PATH}/github/${repo}"
         cecho "CYAN" "Cloning project: ${repo}"
         git clone $REPO_REMOTE_PATH $REPO_LOCAL_PATH
+        echo
     done
 }
 
@@ -123,10 +124,12 @@ function macosCustomSettings() {
     for i in {1..4}; do
         defaults write com.apple.dock persistent-apps -array-add '{tile-type="spacer-tile";}'
     done
+
     # Add macOS Dock Dividers - right side of the dock
-    for i in {1..2}; do
-        defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
-    done
+    defaults write com.apple.dock persistent-others -array-add '{tile-data={}; tile-type="spacer-tile";}'
+
+    # sets dock's height
+    defaults write com.apple.dock tilesize -integer 24
 
     # restart Dock
     killall Dock
@@ -144,7 +147,7 @@ function init() {
     macosCustomSettings
     installNodeDeps
 
-    # create workspace and clone repos
+    # CREATE WORKSPACE AND CLONE REPOS
     createWorkspaceFolders
     cloneRepos
 
