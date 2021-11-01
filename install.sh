@@ -71,6 +71,7 @@ function installAppsBundle() {
     echo
     cecho "GREEN" "Installing apps bundle (Brewfile)..."
     brew bundle --verbose
+    brew cleanup
 }
 
 function installNodeDeps() {

@@ -3,6 +3,7 @@ brew 'git'
 brew 'gh'
 brew 'nvm'
 brew 'python'
+brew 'wget'
 
 # 'brew tap'
 tap "homebrew/cask"
