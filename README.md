@@ -6,9 +6,9 @@ This is still experimental and any issues should be logged on the [issues page](
 
 # How to use
 
-- Install XCODE binaires:
+- Install Xcode command line tools
   - `xcode-select --install`
-- Install macOs package manager 'Brew': 
+- Install macOS package manager (Brew)
   -  `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 - Clone this repository into you machine
   - `git clone https://github.com/davinaizer/dev-env-setup.git`
