@@ -142,7 +142,7 @@ function init() {
     startTime=$SECONDS
 
     # INSTALL DEPENDENCIES
-    installSystemDeps
+    # installSystemDeps
     installAppsBundle
     macosCustomSettings
     installNodeDeps
